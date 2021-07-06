@@ -1,0 +1,50 @@
+<? session_start();
+	error_reporting(0);
+?>
+<html>
+<head>
+<title>Reservations Meeting</title>
+<meta HTTP-EQUIV="Refresh" CONTENT="1;URL=confirm_room.php?txtName=<?=$_GET["txtname"];?>&&txtStatus=<?=$_GET["txtstatus"];?>" charset="utf-8">
+<link rel="shortcut icon" href="stylesheet/img/devil-icon.png"> <!--Pemanggilan gambar favicon-->
+<link rel="stylesheet" type="text/css" href="mos-css/mos-style.css"> <!--pemanggilan file css-->
+</head>
+
+<body>
+<div id="header">
+	<div class="inHeaderLogin"></div>
+</div>
+<div id="errorForm"><br><br>
+		<div class="informasi">
+
+
+
+    <?
+	include("connectdb.php");
+	
+		if($_GET["status"]=='N')
+		{
+			$strSQL1 = "UPDATE meeting_list SET mstatus = 'Y' where id = '".$_GET["id"]."' ";
+			echo "อนุมัติรายการนี้เรียบร้อยแล้ว !";
+		}
+		else if($_GET["status"]=='Y')
+		{
+			$strSQL1 = "UPDATE meeting_list SET mstatus = 'N' where id = '".$_GET["id"]."' ";
+			echo "เปลี่ยนใจ ยกเลิกการอนุมัติก่อน !";
+		}
+		else if($_GET["status"]=='S')
+		{
+			$strSQL1 = "UPDATE meeting_list SET mstatus = 'Y' where id = '".$_GET["id"]."' ";
+			echo "เปลี่ยนใจ รายการนี้เปลี่ยนใจจองใหม่อีกครั้ง  !";
+		}
+		
+		$objQuery1 = mysql_query($strSQL1);
+	
+	
+
+	mysql_close();
+?>
+
+		</div>
+</div>
+</body>
+</html>
